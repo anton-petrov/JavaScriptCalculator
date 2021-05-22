@@ -1,7 +1,11 @@
 const express = require('express');
 
 const app = express();
-const PORT = 3000;
+let port = process.env.PORT;
+console.log(port)
+if (port == null || port == "") {
+    port = 3000;
+}
 
 app.use(express.static('public'));
 
@@ -13,4 +17,4 @@ app.get('/about', (req, res) => {
     res.sendFile('./public/about.html', { root: __dirname });
 });
 
-app.listen(PORT, () => console.log(`listening on port ${PORT}!`));
+app.listen(port);
