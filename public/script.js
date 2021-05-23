@@ -182,11 +182,9 @@ equalsButton.addEventListener("click", (button) => {
 rndButton.addEventListener("click", (button) => {
   calculator.isRound = !calculator.isRound;
   if(calculator.isRound) {
-    console.log(rgba2hex('rgba(180, 180, 180, 0.75)'))
     rndButton.style.backgroundColor = rgba2hex('rgba(180, 180, 180, 0.75)');
   }
   else {
-    console.log(rgba2hex('rgba(255, 255, 255, 0.75)'))
     rndButton.style.backgroundColor = rgba2hex('rgba(255, 255, 255, 0.75)');
   }
   calculator.updateDisplay();
