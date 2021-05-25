@@ -5,7 +5,7 @@ let port = process.env.PORT; // для heroku
 
 // локальный запуск
 if (port == null || port == "") {
-    port = 80;
+    port = 3000;
 }
 
 app.use(express.static('public'));

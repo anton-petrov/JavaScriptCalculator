@@ -2,37 +2,31 @@ function getBaseLog(x, y) {
   return Math.log(y) / Math.log(x);
 }
 
-function rgb2hex(rgb){
-  rgb = rgb.match(/^rgba?[\s+]?\([\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?,[\s+]?(\d+)[\s+]?/i);
-  return (rgb && rgb.length === 4) ? "#" +
-   ("0" + parseInt(rgb[1],10).toString(16)).slice(-2) +
-   ("0" + parseInt(rgb[2],10).toString(16)).slice(-2) +
-   ("0" + parseInt(rgb[3],10).toString(16)).slice(-2) : '';
- }
-
- function rgba2hex(orig) {
-  var a, isPercent,
-    rgb = orig.replace(/\s/g, '').match(/^rgba?\((\d+),(\d+),(\d+),?([^,\s)]+)?/i),
-    alpha = (rgb && rgb[4] || "").trim(),
-    hex = rgb ?
-    (rgb[1] | 1 << 8).toString(16).slice(1) +
-    (rgb[2] | 1 << 8).toString(16).slice(1) +
-    (rgb[3] | 1 << 8).toString(16).slice(1) : orig;
+function rgba2hex(orig) {
+  var a,
+    isPercent,
+    rgb = orig
+      .replace(/\s/g, "")
+      .match(/^rgba?\((\d+),(\d+),(\d+),?([^,\s)]+)?/i),
+    alpha = ((rgb && rgb[4]) || "").trim(),
+    hex = rgb
+      ? (rgb[1] | (1 << 8)).toString(16).slice(1) +
+        (rgb[2] | (1 << 8)).toString(16).slice(1) +
+        (rgb[3] | (1 << 8)).toString(16).slice(1)
+      : orig;
 
   if (alpha !== "") {
     a = alpha;
   } else {
     a = 01;
   }
-  // multiply before convert to HEX
-  a = ((a * 255) | 1 << 8).toString(16).slice(1)
+  a = ((a * 255) | (1 << 8)).toString(16).slice(1);
   hex = hex + a;
 
-  return '#' + hex.toString();
+  return "#" + hex.toString();
 }
 
 class Calculator {
-
   isRound = false;
 
   constructor(previousOperandTextElement, currentOperandTextElement) {
@@ -106,8 +100,8 @@ class Calculator {
   }
 
   getDisplayNumber(number) {
-    if(this.isRound) {
-      number = Math.round(number * 1000) / 1000
+    if (this.isRound) {
+      number = Math.round(number * 1000) / 1000;
     }
     const stringNumber = number.toString();
     const integerDigits = parseFloat(stringNumber.split(".")[0]);
@@ -118,7 +112,7 @@ class Calculator {
     } else {
       integerDisplay = integerDigits.toLocaleString("ru", {
         maximumFractionDigits: 0,
-        useGrouping: 'true'
+        useGrouping: "true",
         //style: 'currency',
         //currency: 'RUB',
       });
@@ -135,7 +129,9 @@ class Calculator {
       this.currentOperand
     );
     if (this.operation != null) {
-      this.previousOperandTextElement.innerText = `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`;
+      this.previousOperandTextElement.innerText = `${this.getDisplayNumber(
+        this.previousOperand
+      )} ${this.operation}`;
     } else {
       this.previousOperandTextElement.innerText = "";
     }
@@ -181,11 +177,10 @@ equalsButton.addEventListener("click", (button) => {
 
 rndButton.addEventListener("click", (button) => {
   calculator.isRound = !calculator.isRound;
-  if(calculator.isRound) {
-    rndButton.style.backgroundColor = rgba2hex('rgba(180, 180, 180, 0.75)');
-  }
-  else {
-    rndButton.style.backgroundColor = rgba2hex('rgba(255, 255, 255, 0.75)');
+  if (calculator.isRound) {
+    rndButton.style.backgroundColor = rgba2hex("rgba(180, 180, 180, 0.75)");
+  } else {
+    rndButton.style.backgroundColor = rgba2hex("rgba(255, 255, 255, 0.75)");
   }
   calculator.updateDisplay();
 });
