@@ -100,8 +100,9 @@ class Calculator {
   }
 
   getDisplayNumber(number) {
-    if (this.isRound) {
-      number = Math.round(number * 1000) / 1000;
+    if (this.isRound && !isNaN(number) && number !== null) {
+      console.log(number)
+      number = parseFloat(parseFloat(number).toFixed(3))// Math.round(number * 1000) / 1000;
     }
     const stringNumber = number.toString();
     const integerDigits = parseFloat(stringNumber.split(".")[0]);
